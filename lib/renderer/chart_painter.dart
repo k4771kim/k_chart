@@ -349,6 +349,7 @@ class ChartPainter extends BaseChartPainter {
           : this.chartColors.nowPriceDnColor;
     //先画横线
     double startX = 0;
+
     final max = -mTranslateX + mWidth / scaleX;
     final space =
         this.chartStyle.nowPriceLineSpan + this.chartStyle.nowPriceLineLength;
@@ -362,11 +363,11 @@ class ChartPainter extends BaseChartPainter {
     //再画背景和文本
     TextPainter tp = getTextPainter(
         value.toStringAsFixed(fixedLength), this.chartColors.nowPriceTextColor);
-    double left = 0;
+    double left = mWidth;
     double top = y - tp.height / 2;
     canvas.drawRect(Rect.fromLTRB(left, top, left + tp.width, top + tp.height),
         nowPricePaint);
-    tp.paint(canvas, Offset(0, top));
+    tp.paint(canvas, Offset(left, top));
   }
 
   ///画交叉线
