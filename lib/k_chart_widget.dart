@@ -174,13 +174,13 @@ class _KChartWidgetState extends State<KChartWidget>
       onLongPressStart: (details) {
         isLongPress = true;
         if (mSelectX != details.globalPosition.dx) {
-          mSelectX = details.globalPosition.dx;
+          mSelectX = details.globalPosition.dx * 10 / 9;
           notifyChanged();
         }
       },
       onLongPressMoveUpdate: (details) {
         if (mSelectX != details.globalPosition.dx) {
-          mSelectX = details.globalPosition.dx;
+          mSelectX = details.globalPosition.dx * 10 / 9;
           notifyChanged();
         }
       },
@@ -310,8 +310,7 @@ class _KChartWidgetState extends State<KChartWidget>
     Color color = widget.chartColors.infoWindowNormalColor;
     if (info.startsWith("+"))
       color = widget.chartColors.infoWindowUpColor;
-    else if (info.startsWith("-"))
-      color = widget.chartColors.infoWindowDnColor;
+    else if (info.startsWith("-")) color = widget.chartColors.infoWindowDnColor;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,

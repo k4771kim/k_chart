@@ -42,7 +42,11 @@ abstract class BaseChartPainter extends CustomPainter {
   double mDataLen = 0.0; //数据占屏幕总长度
   final ChartStyle chartStyle;
   late double mPointWidth;
-  List<String> mFormats = [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn]; //格式化时间
+  List<String> mFormats = [
+    mm,
+    '-',
+    dd,
+  ]; //格式化时间
 
   BaseChartPainter(
     this.chartStyle, {
@@ -69,15 +73,6 @@ abstract class BaseChartPainter extends CustomPainter {
     int secondTime = datas![1].time ?? 0;
     int time = secondTime - firstTime;
     time ~/= 1000;
-    //月线
-    if (time >= 24 * 60 * 60 * 28)
-      mFormats = [yy, '-', mm];
-    //日线等
-    else if (time >= 24 * 60 * 60)
-      mFormats = [yy, '-', mm, '-', dd];
-    //小时线等
-    else
-      mFormats = [mm, '-', dd, ' ', HH, ':', nn];
   }
 
   @override
@@ -90,7 +85,7 @@ abstract class BaseChartPainter extends CustomPainter {
     initChartRenderer();
 
     canvas.save();
-    canvas.scale(1, 1);
+    canvas.scale(0.9, 1);
     drawBg(canvas, size);
     drawGrid(canvas);
     if (datas != null && datas!.isNotEmpty) {
@@ -317,6 +312,7 @@ abstract class BaseChartPainter extends CustomPainter {
   ///计算长按后x的值，转换为index
   int calculateSelectedX(double selectX) {
     int mSelectedIndex = indexOfTranslateX(xToTranslateX(selectX));
+
     if (mSelectedIndex < mStartIndex) {
       mSelectedIndex = mStartIndex;
     }
